@@ -1,11 +1,13 @@
 import React from "react";
 
-const Cell = ({ num }) => {
-  const handleClick = (num) => {
-    alert(num);
-  };
+const Cell = (props) => {
+  const { num, cells, func } = props;
 
-  return <td onClick={() => handleClick(num)}></td>;
+  return (
+    <>
+      <td onClick={() => func(num)}>{cells[num]}</td>
+    </>
+  );
 };
 
 export default Cell;
