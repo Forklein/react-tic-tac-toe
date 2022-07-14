@@ -4,7 +4,7 @@ import Cell from "./Cell";
 const Table = () => {
   const [turn, setTurn] = useState("X");
 
-  const [cells] = useState(Array(9).fill(""));
+  const [cells, setCells] = useState(Array(9).fill(""));
 
   const handleClick = (number) => {
     if (cells[number] !== "") {
@@ -14,17 +14,16 @@ const Table = () => {
 
     if (turn === "X") {
       cells[number] = turn;
-      checkWin(cells);
       setTurn("O");
     } else {
       cells[number] = turn;
       setTurn("X");
-      checkWin(cells);
     }
+    checkWin(cells);
   };
 
   const checkWin = (arr) => {
-    console.log(arr);
+    // console.log(arr);
     const combos = {
       vertical: [
         [0, 1, 2],
@@ -42,12 +41,26 @@ const Table = () => {
       ],
     };
     let key;
+    console.log(arr);
     for (key in combos) {
       const combo = combos[key];
       combo.forEach((element) => {
-        element.forEach((el) => {
-          console.log(el);
-        });
+        console.log(arr[element[0]]);
+        if (
+          arr[element[0]] === "" ||
+          arr[element[1]] === "" ||
+          arr[element[2]] === ""
+        ) {
+          // do nothing
+        } else if (
+          arr[element[0]] === arr[element[1]] &&
+          arr[element[1]] === arr[element[2]]
+        ) {
+          setTimeout(() => {
+            alert(`The winner is ${arr[element[0]]}`);
+            setCells(Array(9).fill(""));
+          }, 300);
+        }
       });
     }
   };
