@@ -4,26 +4,52 @@ import Cell from "./Cell";
 const Table = () => {
   const [turn, setTurn] = useState("X");
 
-  const [cells, setCells] = useState(Array(9).fill(""));
+  const [cells] = useState(Array(9).fill(""));
 
   const handleClick = (number) => {
-    // let squares = [...cells];
-    // console.log(squares);
     if (cells[number] !== "") {
-      alert("Already clicked");
+      alert("Already clicked!");
       return;
     }
 
     if (turn === "X") {
-      cells[number] = "X";
+      cells[number] = turn;
+      checkWin(cells);
       setTurn("O");
     } else {
-      cells[number] = "O";
+      cells[number] = turn;
       setTurn("X");
+      checkWin(cells);
     }
-    setCells(cells);
-    console.log(cells);
-    // alert(number);
+  };
+
+  const checkWin = (arr) => {
+    console.log(arr);
+    const combos = {
+      vertical: [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+      ],
+      horizontal: [
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+      ],
+      oblique: [
+        [0, 4, 8],
+        [2, 4, 6],
+      ],
+    };
+    let key;
+    for (key in combos) {
+      const combo = combos[key];
+      combo.forEach((element) => {
+        element.forEach((el) => {
+          console.log(el);
+        });
+      });
+    }
   };
 
   return (
